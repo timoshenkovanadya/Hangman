@@ -1,12 +1,12 @@
 body {
-  display:flex;
+  display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   margin: 5%;
 }
 .title {
   display: flex;
-  justify-content:flex-start;
+  justify-content: flex-start;
   font-size: 32px;
   color: slategrey;
   width: 100%;
@@ -19,84 +19,76 @@ body {
 .gallow-img {
   height: 581px;
   width: 353px;
-  }
-.head{
-  position:absolute;
-  top:21%;
-  left:71%;
-
 }
-.gallows-body{
-  position:absolute;
-  top:35%;
-  left:85%;
-
+.head {
+  position: absolute;
+  top: 21%;
+  left: 71%;
 }
-.left-hand{
-  position:absolute;
-  top:35.5%;
-  left:65%;
-
+.gallows-body {
+  position: absolute;
+  top: 35%;
+  left: 85%;
 }
-.right-hand{
-  position:absolute;
-  top:35.5%;
-  left:87%;
-
+.left-hand {
+  position: absolute;
+  top: 35.5%;
+  left: 65%;
 }
-.left-leg{
-  position:absolute;
-  left:66%;
-  top: 54%
+.right-hand {
+  position: absolute;
+  top: 35.5%;
+  left: 87%;
 }
-.right-leg{
-  position:absolute;
-  left:86%;
+.left-leg {
+  position: absolute;
+  left: 66%;
   top: 54%;
-
+}
+.right-leg {
+  position: absolute;
+  left: 86%;
+  top: 54%;
 }
 .quiz-part {
-  width:50%;
+  width: 50%;
   margin-left: 10%;
 }
 
 .guess-word {
-  display:flex;
+  display: flex;
   flex-direction: row;
   justify-content: center;
   gap: 10px;
-
 }
-.letter{
+.letter {
   font-size: 32px;
-  color: rgba(0,0,0,0);  
+  color: rgba(0, 0, 0, 0);
   border-bottom: 2px solid darksalmon;
-  
 }
 
-.right-letter{
-color:slategrey; 
-border-bottom: none;
+.right-letter {
+  color: slategrey;
+  border-bottom: none;
 }
 
 .question {
-  display:flex;
+  display: flex;
   flex-direction: row;
   justify-content: center;
-  color:slategrey; 
-border-bottom: none;
-font-size: 32px;
-margin-bottom: 4%;
-
+  color: slategrey;
+  border-bottom: none;
+  font-size: 32px;
+  margin-bottom: 4%;
 }
 .incorrect-guess-count {
-  display:flex;
+  display: flex;
   flex-direction: row;
   justify-content: center;
-  color:slategrey; 
-border-bottom: none;
-font-size: 32px;
-margin-bottom: 4%;
+  color: slategrey;
+  border-bottom: none;
+  font-size: 32px;
+  margin-bottom: 4%;
 }
 .keyboard {
   display: flex;
@@ -105,7 +97,6 @@ margin-bottom: 4%;
   align-items: center;
   flex-wrap: wrap;
   gap: 2px;
-  
 }
 .key {
   display: flex;
@@ -114,8 +105,8 @@ margin-bottom: 4%;
   font-size: 24px;
   width: 70px;
   height: 70px;
-  background-color:darksalmon;
-  color:lightgray;
+  background-color: darksalmon;
+  color: lightgray;
   border-radius: 10px;
   border-color: darksalmon;
   box-shadow: none;

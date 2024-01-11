@@ -1,10 +1,9 @@
-
 import getLettersLine from "./display/getLettersLine.js";
 import Gallows from "./gallows/gallows.js";
 import gallowsWrap from "./gallows/gallowsWrap.js";
 
 const state = {
-  keyWord: "baby",
+  keyWord: "BABY",
   hint: "hint hint hint",
   incorrectAttempt: 0,
   maxIncorrectAttempts: 6,
@@ -12,6 +11,7 @@ const state = {
 };
 
 const body = document.querySelector("body");
+
 body.append(gallowsWrap);
 
 const pageName = document.createElement("p");
@@ -29,13 +29,17 @@ quizPart.appendChild(guessWord);
 
 const question = document.createElement("div");
 question.classList.add("question");
-question.innerText = "Hint: hint hint hint";
+question.textContent = `Hint: ${state.hint}`;
 quizPart.appendChild(question);
 
 const incorrectGuessCount = document.createElement("div");
 incorrectGuessCount.classList.add("incorrect-guess-count");
-incorrectGuessCount.innerHTML = "Incorrect guesses:";
+incorrectGuessCount.textContent = `Incorrect attempt: ${state.incorrectAttempt} / ${state.maxIncorrectAttempts}`;
 quizPart.appendChild(incorrectGuessCount);
+
+const changeIncorrectAttempts = () => {
+  incorrectGuessCount.textContent = `Incorrect attempt: ${state.incorrectAttempt} / ${state.maxIncorrectAttempts}`;
+};
 
 const keyboard = document.createElement("div");
 keyboard.classList.add("keyboard");
@@ -53,15 +57,23 @@ function createKeyboard() {
       if (!state.pressedKeys.includes(letter)) {
         state.pressedKeys.push(letter);
       }
-      key.classList.add('pressed-key');
+      if (state.keyWord.includes(letter)) {
+        //
+      } else {
+        state.incorrectAttempt++;
+        changeIncorrectAttempts();
+        if (state.incorrectAttempt === state.maxIncorrectAttempts) {
+          // TODO
+        }
+        
+      }
+      key.classList.add("pressed-key");
       key.disabled = true;
       console.log(state);
     };
   }
 }
 createKeyboard();
-
-
 
 // const gallows = new Gallows(state, body);
 // gallows.render();
