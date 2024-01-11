@@ -1,4 +1,4 @@
-// import greenSquare from "./module.js";
+
 import getLettersLine from "./display/getLettersLine.js";
 import Gallows from "./gallows/gallows.js";
 import gallowsWrap from "./gallows/gallowsWrap.js";
@@ -13,7 +13,6 @@ const state = {
 
 const body = document.querySelector("body");
 body.append(gallowsWrap);
-
 
 const pageName = document.createElement("p");
 pageName.innerText = "Hangman game";
@@ -30,12 +29,12 @@ quizPart.appendChild(guessWord);
 
 const question = document.createElement("div");
 question.classList.add("question");
-question.innerText='Hint: hint hint hint';
+question.innerText = "Hint: hint hint hint";
 quizPart.appendChild(question);
 
 const incorrectGuessCount = document.createElement("div");
 incorrectGuessCount.classList.add("incorrect-guess-count");
-incorrectGuessCount.innerHTML="Incorrect guesses:";
+incorrectGuessCount.innerHTML = "Incorrect guesses:";
 quizPart.appendChild(incorrectGuessCount);
 
 const keyboard = document.createElement("div");
@@ -54,6 +53,8 @@ function createKeyboard() {
       if (!state.pressedKeys.includes(letter)) {
         state.pressedKeys.push(letter);
       }
+      key.classList.add('pressed-key');
+      key.disabled = true;
       console.log(state);
     };
   }

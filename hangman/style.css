@@ -12,52 +12,52 @@ body {
   width: 100%;
 }
 .gallow-wrap {
-  height: 40%;
-  width: 40%;
+  /* height: 40%;
+  width: 40%; */
   position: relative;
 }
 .gallow-img {
   height: 581px;
   width: 353px;
-  
-}
+  }
 .head{
   position:absolute;
-  top:20%;
-  left:46%;
+  top:21%;
+  left:71%;
 
 }
 .gallows-body{
   position:absolute;
-  top:34%;
-  left:55%;
+  top:35%;
+  left:85%;
 
 }
 .left-hand{
   position:absolute;
-  top:34.7%;
-  left:42.5%;
+  top:35.5%;
+  left:65%;
 
 }
 .right-hand{
   position:absolute;
-  top:34.7%;
-  left:56%;
+  top:35.5%;
+  left:87%;
 
 }
 .left-leg{
   position:absolute;
-  left:43%;
-  top: 53%
+  left:66%;
+  top: 54%
 }
 .right-leg{
   position:absolute;
-  left:56%;
-  top: 53%;
+  left:86%;
+  top: 54%;
 
 }
 .quiz-part {
   width:50%;
+  margin-left: 10%;
 }
 
 .guess-word {
@@ -121,5 +121,5 @@ margin-bottom: 4%;
   box-shadow: none;
 }
 .pressed-key {
-  background-color: deeppink;
+  background-color: lavenderblush;
 }
