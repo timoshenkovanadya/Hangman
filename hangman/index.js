@@ -1,11 +1,13 @@
 import getLettersLine from "./display/getLettersLine.js";
 import gallowsWrap from "./gallows/gallowsWrap.js";
+import keywordsAndHints from "./display/keywords.js";
 
 const state = {
   keyWord: "BABY",
   hint: "custom hunts custom hunts custom hunts",
   incorrectAttempt: 0,
   maxIncorrectAttempts: 6,
+  correctAttempt: 0,
   pressedKeys: [],
 };
 
@@ -22,21 +24,20 @@ const quizPart = document.createElement("div");
 quizPart.classList.add("quiz-part");
 body.appendChild(quizPart);
 
-const modal = document.createElement('div');
-modal.classList.add('modal');
+const modal = document.createElement("div");
+modal.classList.add("modal");
 body.appendChild(modal);
 modal.textContent = `Secret word is ${state.keyWord}`;
-const modalText = document.createElement('p');
-modalText.classList.add('modal-text');
+const modalText = document.createElement("p");
+modalText.classList.add("modal-text");
 modal.appendChild(modalText);
-const playAgain = document.createElement('button');
-playAgain.classList.add('play-again');
-playAgain.textContent = 'Play again';
+const playAgain = document.createElement("button");
+playAgain.classList.add("play-again");
+playAgain.textContent = "Play again";
 modal.appendChild(playAgain);
-const backgroundModal= document.createElement('div');
-backgroundModal.classList.add('background-modal');
+const backgroundModal = document.createElement("div");
+backgroundModal.classList.add("background-modal");
 body.appendChild(backgroundModal);
-
 
 const guessWord = getLettersLine(state);
 guessWord.classList.add("guess-word");
@@ -52,17 +53,21 @@ incorrectGuessCount.classList.add("incorrect-guess-count");
 incorrectGuessCount.textContent = `Incorrect attempt: ${state.incorrectAttempt} / ${state.maxIncorrectAttempts}`;
 quizPart.appendChild(incorrectGuessCount);
 
-function openWinModal () {
-  modal.style.display="flex";
-  modalText.textContent="Congratulations! You Win!";
+const refreshGame () => {
+  
 }
 
-function openLoseModal () {
-  modal.style.display="flex";
-  modalText.textContent='Sorry, you lost';
-  backgroundModal.style.display="block";
+function openWinModal() {
+  modal.style.display = "flex";
+  modalText.textContent = "Congratulations! You Win!";
+  backgroundModal.style.display = "block";
 }
 
+function openLoseModal() {
+  modal.style.display = "flex";
+  modalText.textContent = "Sorry, you lost";
+  backgroundModal.style.display = "block";
+}
 
 const changeIncorrectAttempts = () => {
   incorrectGuessCount.textContent = `Incorrect attempt: ${state.incorrectAttempt} / ${state.maxIncorrectAttempts}`;
@@ -100,8 +105,8 @@ const changeButtonStyle = () => {
 };
 
 const pressKeyHandler = (e) => {
-  
   console.log(e, "EVENT");
+  // const correctLettersArr = document.querySelectorAll(".correct-letter");
   const letter =
     e.type === "keydown" ? e.key.toUpperCase() : e.target.textContent;
   if (!state.pressedKeys.includes(letter)) {
@@ -109,16 +114,19 @@ const pressKeyHandler = (e) => {
   }
   if (state.keyWord.includes(letter)) {
     madeLettersVisible();
+    // if (correctLettersArr.length === state.keyWord.length) {
+    //   openWinModal();
+    // }
   } else {
     state.incorrectAttempt++;
     changeIncorrectAttempts();
     madePersonVisible();
-    
+
     if (state.incorrectAttempt === state.maxIncorrectAttempts) {
       openLoseModal();
     }
   }
- changeButtonStyle()
+  changeButtonStyle();
 };
 
 function createKeyboard() {
