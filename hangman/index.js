@@ -22,6 +22,22 @@ const quizPart = document.createElement("div");
 quizPart.classList.add("quiz-part");
 body.appendChild(quizPart);
 
+const modal = document.createElement('div');
+modal.classList.add('modal');
+body.appendChild(modal);
+modal.textContent = `Secret word is ${state.keyWord}`;
+const modalText = document.createElement('p');
+modalText.classList.add('modal-text');
+modal.appendChild(modalText);
+const playAgain = document.createElement('button');
+playAgain.classList.add('play-again');
+playAgain.textContent = 'Play again';
+modal.appendChild(playAgain);
+const backgroundModal= document.createElement('div');
+backgroundModal.classList.add('background-modal');
+body.appendChild(backgroundModal);
+
+
 const guessWord = getLettersLine(state);
 guessWord.classList.add("guess-word");
 quizPart.appendChild(guessWord);
@@ -35,6 +51,18 @@ const incorrectGuessCount = document.createElement("div");
 incorrectGuessCount.classList.add("incorrect-guess-count");
 incorrectGuessCount.textContent = `Incorrect attempt: ${state.incorrectAttempt} / ${state.maxIncorrectAttempts}`;
 quizPart.appendChild(incorrectGuessCount);
+
+function openWinModal () {
+  modal.style.display="flex";
+  modalText.textContent="Congratulations! You Win!";
+}
+
+function openLoseModal () {
+  modal.style.display="flex";
+  modalText.textContent='Sorry, you lost';
+  backgroundModal.style.display="block";
+}
+
 
 const changeIncorrectAttempts = () => {
   incorrectGuessCount.textContent = `Incorrect attempt: ${state.incorrectAttempt} / ${state.maxIncorrectAttempts}`;
@@ -87,7 +115,7 @@ const pressKeyHandler = (e) => {
     madePersonVisible();
     
     if (state.incorrectAttempt === state.maxIncorrectAttempts) {
-      // TODO
+      openLoseModal();
     }
   }
  changeButtonStyle()
