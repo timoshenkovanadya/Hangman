@@ -1,10 +1,9 @@
 import getLettersLine from "./display/getLettersLine.js";
-import Gallows from "./gallows/gallows.js";
 import gallowsWrap from "./gallows/gallowsWrap.js";
 
 const state = {
   keyWord: "BABY",
-  hint: "hint hint hint",
+  hint: "custom hunts custom hunts custom hunts",
   incorrectAttempt: 0,
   maxIncorrectAttempts: 6,
   pressedKeys: [],
@@ -41,9 +40,58 @@ const changeIncorrectAttempts = () => {
   incorrectGuessCount.textContent = `Incorrect attempt: ${state.incorrectAttempt} / ${state.maxIncorrectAttempts}`;
 };
 
+const madeLettersVisible = () => {
+  const pressedLetter = state.pressedKeys.at(-1);
+  const lettersArr = guessWord.querySelectorAll(".letter");
+  lettersArr.forEach((letter) => {
+    if (letter.textContent === pressedLetter) {
+      letter.classList.add("correct-letter");
+    }
+  });
+};
+
+const madePersonVisible = () => {
+  const personPartsArr = gallowsWrap.querySelectorAll(".body-part");
+  const part = personPartsArr[state.incorrectAttempt - 1];
+  part.classList.add("visible");
+};
+
 const keyboard = document.createElement("div");
 keyboard.classList.add("keyboard");
 quizPart.appendChild(keyboard);
+
+const changeButtonStyle = () => {
+  const pressedKey = state.pressedKeys.at(-1);
+  const keysArr = keyboard.querySelectorAll(".key");
+  keysArr.forEach((key) => {
+    if (key.textContent === pressedKey) {
+      key.classList.add("pressed-key");
+      key.disabled = true;
+    }
+  });
+};
+
+const pressKeyHandler = (e) => {
+  
+  console.log(e, "EVENT");
+  const letter =
+    e.type === "keydown" ? e.key.toUpperCase() : e.target.textContent;
+  if (!state.pressedKeys.includes(letter)) {
+    state.pressedKeys.push(letter);
+  }
+  if (state.keyWord.includes(letter)) {
+    madeLettersVisible();
+  } else {
+    state.incorrectAttempt++;
+    changeIncorrectAttempts();
+    madePersonVisible();
+    
+    if (state.incorrectAttempt === state.maxIncorrectAttempts) {
+      // TODO
+    }
+  }
+ changeButtonStyle()
+};
 
 function createKeyboard() {
   const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -53,36 +101,8 @@ function createKeyboard() {
     key.className = "key";
     key.textContent = letter;
     keyboard.appendChild(key);
-    key.onclick = () => {
-      if (!state.pressedKeys.includes(letter)) {
-        state.pressedKeys.push(letter);
-      }
-      if (state.keyWord.includes(letter)) {
-        //
-      } else {
-        state.incorrectAttempt++;
-        changeIncorrectAttempts();
-        if (state.incorrectAttempt === state.maxIncorrectAttempts) {
-          // TODO
-        }
-        
-      }
-      key.classList.add("pressed-key");
-      key.disabled = true;
-      console.log(state);
-    };
+    key.onclick = pressKeyHandler;
   }
 }
 createKeyboard();
-
-// const gallows = new Gallows(state, body);
-// gallows.render();
-
-// const button = document.createElement("button");
-// button.textContent = "ADD";
-// body.appendChild(button);
-
-// button.onclick = () => {
-//   state.incorrectAttempt++;
-//   gallows.render();
-// };
+document.addEventListener("keydown", pressKeyHandler);

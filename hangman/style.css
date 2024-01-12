@@ -50,6 +50,12 @@ body {
   left: 86%;
   top: 54%;
 }
+.body-part {
+  opacity: 0;
+}
+.visible {
+  opacity: 1;
+}
 .quiz-part {
   width: 50%;
   margin-left: 10%;
@@ -67,7 +73,7 @@ body {
   border-bottom: 2px solid darksalmon;
 }
 
-.right-letter {
+.correct-letter {
   color: slategrey;
   border-bottom: none;
 }
