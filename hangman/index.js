@@ -7,7 +7,6 @@ const state = {
   hint: "custom hunts custom hunts custom hunts",
   incorrectAttempt: 0,
   maxIncorrectAttempts: 6,
-  correctAttempt: 0,
   pressedKeys: [],
 };
 
@@ -39,8 +38,7 @@ const backgroundModal = document.createElement("div");
 backgroundModal.classList.add("background-modal");
 body.appendChild(backgroundModal);
 
-const guessWord = getLettersLine(state);
-guessWord.classList.add("guess-word");
+let guessWord = getLettersLine(state);
 quizPart.appendChild(guessWord);
 
 const question = document.createElement("div");
@@ -52,10 +50,6 @@ const incorrectGuessCount = document.createElement("div");
 incorrectGuessCount.classList.add("incorrect-guess-count");
 incorrectGuessCount.textContent = `Incorrect attempt: ${state.incorrectAttempt} / ${state.maxIncorrectAttempts}`;
 quizPart.appendChild(incorrectGuessCount);
-
-const refreshGame () => {
-  
-}
 
 function openWinModal() {
   modal.style.display = "flex";
@@ -99,24 +93,24 @@ const changeButtonStyle = () => {
   keysArr.forEach((key) => {
     if (key.textContent === pressedKey) {
       key.classList.add("pressed-key");
-      key.disabled = true;
     }
   });
 };
 
 const pressKeyHandler = (e) => {
-  console.log(e, "EVENT");
-  // const correctLettersArr = document.querySelectorAll(".correct-letter");
   const letter =
     e.type === "keydown" ? e.key.toUpperCase() : e.target.textContent;
   if (!state.pressedKeys.includes(letter)) {
     state.pressedKeys.push(letter);
+  } else {
+    return;
   }
   if (state.keyWord.includes(letter)) {
     madeLettersVisible();
-    // if (correctLettersArr.length === state.keyWord.length) {
-    //   openWinModal();
-    // }
+    const correctLettersArr = document.querySelectorAll(".correct-letter");
+    if (correctLettersArr.length === state.keyWord.length) {
+      openWinModal();
+    }
   } else {
     state.incorrectAttempt++;
     changeIncorrectAttempts();
@@ -140,5 +134,38 @@ function createKeyboard() {
     key.onclick = pressKeyHandler;
   }
 }
+function refreshGame() {
+  // refresh state
+  const index = Math.floor(Math.random() * 15);
+  state.keyWord = keywordsAndHints[index].keyword;
+  state.hint = keywordsAndHints[index].hint;
+  state.incorrectAttempt = 0;
+  state.pressedKeys = [];
+
+  // reset word
+  const newGuessWord = getLettersLine(state);
+  quizPart.replaceChild(newGuessWord, guessWord);
+  guessWord = newGuessWord;
+
+  // reset hint
+  question.textContent = `Hint: ${state.hint}`;
+
+  // reset incorrect attempts
+  incorrectGuessCount.textContent = `Incorrect attempt: ${state.incorrectAttempt} / ${state.maxIncorrectAttempts}`;
+
+  // reset keyboard
+  const keyboardButtons = document.querySelectorAll(".pressed-key");
+  keyboardButtons.forEach((button) => button.classList.remove("pressed-key"));
+
+  // reset body parts
+  const bodyParts = document.querySelectorAll(".body-part.visible");
+  bodyParts.forEach((part) => part.classList.remove("visible"));
+
+  // close modal
+  modal.style.display = "none";
+  backgroundModal.style.display = "none";
+}
 createKeyboard();
 document.addEventListener("keydown", pressKeyHandler);
+playAgain.addEventListener("click", refreshGame);
+// window.addEventListener('load', refreshGame);
