@@ -1,9 +1,9 @@
 import getLettersLine from "./display/getLettersLine.js";
 import gallowsWrap from "./gallows/gallowsWrap.js";
 import keywordsAndHints from "./display/keywords.js";
-const index= Math.floor(Math.random() * 15)
+const index = Math.floor(Math.random() * 15);
 
-const state = {  
+const state = {
   keyWord: keywordsAndHints[index].keyword,
   hint: keywordsAndHints[index].hint,
   incorrectAttempt: 0,
@@ -99,6 +99,14 @@ const changeButtonStyle = () => {
 };
 
 const pressKeyHandler = (e) => {
+  console.log(e);
+  if (
+    (e.keyCode && e.keyCode < 65) ||
+    (e.keyCode > 90 && e.keyCode < 97) ||
+    e.keyCode > 122
+  ) {
+    return;
+  }
   const letter =
     e.type === "keydown" ? e.key.toUpperCase() : e.target.textContent;
   if (!state.pressedKeys.includes(letter)) {
@@ -170,6 +178,8 @@ function refreshGame() {
   backgroundModal.style.display = "none";
 }
 createKeyboard();
+
 document.addEventListener("keydown", pressKeyHandler);
+
 playAgain.addEventListener("click", refreshGame);
 // window.addEventListener('load', refreshGame);
