@@ -1,10 +1,11 @@
 import getLettersLine from "./display/getLettersLine.js";
 import gallowsWrap from "./gallows/gallowsWrap.js";
 import keywordsAndHints from "./display/keywords.js";
+const index= Math.floor(Math.random() * 15)
 
-const state = {
-  keyWord: "BABY",
-  hint: "custom hunts custom hunts custom hunts",
+const state = {  
+  keyWord: keywordsAndHints[index].keyword,
+  hint: keywordsAndHints[index].hint,
   incorrectAttempt: 0,
   maxIncorrectAttempts: 6,
   pressedKeys: [],
@@ -160,6 +161,9 @@ function refreshGame() {
   // reset body parts
   const bodyParts = document.querySelectorAll(".body-part.visible");
   bodyParts.forEach((part) => part.classList.remove("visible"));
+
+  modal.textContent = `Secret word is ${state.keyWord}`;
+  modal.classList.add("modal");
 
   // close modal
   modal.style.display = "none";
