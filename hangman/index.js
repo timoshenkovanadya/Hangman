@@ -1,6 +1,7 @@
 import getLettersLine from "./display/getLettersLine.js";
 import gallowsWrap from "./gallows/gallowsWrap.js";
 import keywordsAndHints from "./display/keywords.js";
+
 const index = Math.floor(Math.random() * 15);
 
 const state = {
@@ -21,7 +22,6 @@ const quizPart = document.createElement("div");
 quizPart.classList.add("quiz-part");
 body.appendChild(quizPart);
 
-
 const modal = document.createElement("div");
 modal.classList.add("modal");
 body.appendChild(modal);
@@ -30,7 +30,7 @@ modalText.classList.add("modal-text");
 modal.appendChild(modalText);
 const secretWord = document.createElement("p");
 secretWord.textContent = `Secret word is ${state.keyWord}`;
-secretWord.classList.add('secret-word');
+secretWord.classList.add("secret-word");
 modal.appendChild(secretWord);
 const playAgain = document.createElement("button");
 playAgain.classList.add("play-again");
@@ -39,7 +39,6 @@ modal.appendChild(playAgain);
 const backgroundModal = document.createElement("div");
 backgroundModal.classList.add("background-modal");
 body.appendChild(backgroundModal);
-
 
 let guessWord = getLettersLine(state);
 quizPart.appendChild(guessWord);
@@ -58,7 +57,6 @@ function openWinModal() {
   modal.style.display = "flex";
   modalText.textContent = "Congratulations! You Win!";
   backgroundModal.style.display = "block";
-  
 }
 
 function openLoseModal() {
@@ -102,7 +100,6 @@ const changeButtonStyle = () => {
 };
 
 const pressKeyHandler = (e) => {
-  console.log(e);
   const letter =
     e.type === "keydown" ? e.key.toUpperCase() : e.target.textContent;
   if (!state.pressedKeys.includes(letter)) {
@@ -142,6 +139,10 @@ function createKeyboard() {
 function refreshGame() {
   // refresh state
   const index = Math.floor(Math.random() * 15);
+  if (keywordsAndHints[index].keyword === state.keyWord) {
+    refreshGame();
+    return;
+  }
   state.keyWord = keywordsAndHints[index].keyword;
   state.hint = keywordsAndHints[index].hint;
   state.incorrectAttempt = 0;
@@ -166,7 +167,7 @@ function refreshGame() {
   const bodyParts = document.querySelectorAll(".body-part.visible");
   bodyParts.forEach((part) => part.classList.remove("visible"));
 
-    // close modal
+  // close modal
   modal.style.display = "none";
   backgroundModal.style.display = "none";
 
@@ -175,12 +176,10 @@ function refreshGame() {
 }
 createKeyboard();
 
-
-document.addEventListener("keydown", function(e) {
+document.addEventListener("keydown", function (e) {
   if (e.key.match(/^[a-z]$/i)) {
-      pressKeyHandler(e);
+    pressKeyHandler(e);
   }
 });
 
 playAgain.addEventListener("click", refreshGame);
-
