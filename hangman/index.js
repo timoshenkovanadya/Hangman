@@ -15,22 +15,21 @@ const body = document.querySelector("body");
 
 body.append(gallowsWrap);
 
-const pageName = document.createElement("p");
-pageName.innerText = "Hangman game";
-pageName.classList.add("title");
-gallowsWrap.appendChild(pageName);
-
 const quizPart = document.createElement("div");
 quizPart.classList.add("quiz-part");
 body.appendChild(quizPart);
 
+
 const modal = document.createElement("div");
 modal.classList.add("modal");
 body.appendChild(modal);
-modal.textContent = `Secret word is ${state.keyWord}`;
 const modalText = document.createElement("p");
 modalText.classList.add("modal-text");
 modal.appendChild(modalText);
+const secretWord = document.createElement("p");
+secretWord.textContent = `Secret word is ${state.keyWord}`;
+secretWord.classList.add('secret-word');
+modal.appendChild(secretWord);
 const playAgain = document.createElement("button");
 playAgain.classList.add("play-again");
 playAgain.textContent = "Play again";
@@ -38,6 +37,7 @@ modal.appendChild(playAgain);
 const backgroundModal = document.createElement("div");
 backgroundModal.classList.add("background-modal");
 body.appendChild(backgroundModal);
+
 
 let guessWord = getLettersLine(state);
 quizPart.appendChild(guessWord);
@@ -56,6 +56,7 @@ function openWinModal() {
   modal.style.display = "flex";
   modalText.textContent = "Congratulations! You Win!";
   backgroundModal.style.display = "block";
+  
 }
 
 function openLoseModal() {
@@ -170,12 +171,12 @@ function refreshGame() {
   const bodyParts = document.querySelectorAll(".body-part.visible");
   bodyParts.forEach((part) => part.classList.remove("visible"));
 
-  modal.textContent = `Secret word is ${state.keyWord}`;
-  modal.classList.add("modal");
-
-  // close modal
+    // close modal
   modal.style.display = "none";
   backgroundModal.style.display = "none";
+
+  //reset modal
+  secretWord.textContent = `Secret word is ${state.keyWord}`;
 }
 createKeyboard();
 
