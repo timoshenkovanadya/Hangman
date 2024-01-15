@@ -4,7 +4,7 @@ body {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  margin: 5%;
+ 
   
 }
 @media(max-width:768px){

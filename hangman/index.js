@@ -11,6 +11,8 @@ const state = {
   pressedKeys: [],
 };
 
+console.log(state.keyWord);
+
 const body = document.querySelector("body");
 
 body.append(gallowsWrap);
@@ -101,13 +103,6 @@ const changeButtonStyle = () => {
 
 const pressKeyHandler = (e) => {
   console.log(e);
-  if (
-    (e.keyCode && e.keyCode < 65) ||
-    (e.keyCode > 90 && e.keyCode < 97) ||
-    e.keyCode > 122
-  ) {
-    return;
-  }
   const letter =
     e.type === "keydown" ? e.key.toUpperCase() : e.target.textContent;
   if (!state.pressedKeys.includes(letter)) {
@@ -180,7 +175,12 @@ function refreshGame() {
 }
 createKeyboard();
 
-document.addEventListener("keydown", pressKeyHandler);
+
+document.addEventListener("keydown", function(e) {
+  if (e.key.match(/^[a-z]$/i)) {
+      pressKeyHandler(e);
+  }
+});
 
 playAgain.addEventListener("click", refreshGame);
-// window.addEventListener('load', refreshGame);
+
